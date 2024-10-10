@@ -9,12 +9,100 @@ var vMixSettings = {
     previousProgram: -1,
     preivousPreview: -1,
 
-    multiViewInput: 2,
+    multiViewInput: 0,
     overlayInput: 10,
-    refreshInterval: 150,
-    showAudioMeters: true,
-    layerNameFontSize: 14
+    refreshInterval: 100,
+    showAudioMeters: false,
+    layerNameFontSize: 16
 }
+
+$(document).ready(function() {
+    // Zorg ervoor dat het formulier wordt weergegeven bij het laden van de pagina
+    $(".formContainer").css("display", "flex");
+    $(".warning").css("display", "none");
+    $(".outerContainer").css("display", "none");
+
+    // Functie om audiometers aan of uit te zetten
+    function toggleAudioMeters(show) {
+        if (show) {
+            $('.audioMeter').show();  // Zorg ervoor dat de audiometers worden weergegeven
+        } else {
+            $('.audioMeter').hide();  // Verberg de audiometers
+        }
+    }
+
+    // Controleer of URL-parameters zijn ingesteld en pas de instellingen toe
+    if (vars["Input"]) {
+        vMixSettings.multiViewInput = parseFloat(vars["Input"]) - 1;
+    }
+    if (vars["OverlayInput"]) {
+        vMixSettings.overlayInput = parseFloat(vars["OverlayInput"]);
+    }
+    if (vars["Interval"]) {
+        vMixSettings.refreshInterval = parseFloat(vars["Interval"]);
+    }
+    if (vars["ShowMeters"]) {
+        vMixSettings.showAudioMeters = vars["ShowMeters"] === '1';  // Zet om naar boolean
+    }
+    if (vars["FontSize"]) {
+        vMixSettings.layerNameFontSize = parseFloat(vars["FontSize"]);
+    }
+
+    // Zorg dat de pagina weer correct wordt weergegeven na refresh
+    if (Object.keys(vars).length > 0) {
+        $(".formContainer").css("display", "none");
+        $(".warning").css("display", "flex");
+        $(".outerContainer").css("display", "flex");
+
+        // Controleer bij het laden van de pagina of audiometers moeten worden getoond
+        toggleAudioMeters(vMixSettings.showAudioMeters);
+    }
+
+    // Logica voor het opslaan van instellingen
+    $('#saveSettings').click(function() {
+        // Haal de waarden op uit het formulier
+        const multiViewInput = $('#multiViewInput').val();
+        const overlayInput = $('#overlayInput').val();
+        const refreshInterval = $('#refreshInterval').val();
+        const showAudioMeters = $('#showAudioMeters').is(':checked') ? 1 : 0;
+        const layerNameFontSize = $('#layerNameFontSize').val();
+
+        // Bouw de nieuwe URL met de instellingen
+        const newUrl = window.location.origin + window.location.pathname + `?Input=${multiViewInput}&OverlayInput=${overlayInput}&Interval=${refreshInterval}&ShowMeters=${showAudioMeters}&FontSize=${layerNameFontSize}`;
+        
+        // Update de URL zonder de pagina te herladen
+        window.history.pushState(null, null, newUrl);
+
+        // Verberg het formulier en toon de hoofdinterface
+        $(".formContainer").css("display", "none");
+        $(".warning").css("display", "flex");
+        $(".outerContainer").css("display", "flex");
+
+        // Laad de instellingen in de vMixSettings
+        vMixSettings.multiViewInput = parseFloat(multiViewInput) - 1;
+        vMixSettings.overlayInput = parseFloat(overlayInput);
+        vMixSettings.refreshInterval = parseFloat(refreshInterval);
+        vMixSettings.showAudioMeters = showAudioMeters === 1;
+        vMixSettings.layerNameFontSize = parseFloat(layerNameFontSize);
+
+        // Zet de audiometers aan of uit afhankelijk van de checkboxstatus
+        toggleAudioMeters(vMixSettings.showAudioMeters);
+
+        // Start het ophalen van vMix-data met de nieuwe instellingen
+        setInterval(() => {
+            fetch(`http://${vMixSettings.IP}:${vMixSettings.port}/api`)
+            .then(response => response.text())
+            .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+            .then(data => {
+                vMixRefresh(data);
+
+                // Controleer na elke refresh of de audiometers goed worden weergegeven of verborgen
+                toggleAudioMeters(vMixSettings.showAudioMeters);
+            });
+        }, vMixSettings.refreshInterval);
+    });
+});
+
 
 function toTitleCase(str) {
     return str.replace(/(?:^|\s)\w/g, function(match) {
@@ -85,7 +173,7 @@ function vMixRefresh(data){
     
     overlayArray = Array.prototype.slice.call(data.getElementsByTagName("input")[vMixSettings.multiViewInput].getElementsByTagName("overlay"), 0 );
 
-    if(overlayArray.length == 0){
+    if(overlayArray.length == 0 && vMixSettings.multiViewInput != 0){
         $(".warning").html("No multiview layers on input " + (parseFloat(vMixSettings.multiViewInput) + 1));
         $(".warning").css("display", "flex");
     }
@@ -280,3 +368,4 @@ function updateTally(force){
         vMixSettings.previousProgramKey = vMixSettings.programKey
     }
 }
+

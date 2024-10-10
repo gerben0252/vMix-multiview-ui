@@ -181,4 +181,111 @@ html {
     text-shadow: 2px 2px 1px black;
 }
 
+/* Stijl voor het formulier en de container */
+.formContainer {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
 
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #FFF;
+    font-size: 14px;
+}
+
+.inputField {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #444;
+    color: #FFF;
+    box-sizing: border-box;
+}
+
+.saveButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.saveButton:hover {
+    background-color: #218838;
+}
+
+/* Schakelaar voor Audio Meters */
+.switch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Label voor schakelaar */
+.switch label {
+    color: #FFF;
+    font-size: 14px;
+    
+}
+
+/* Input field verbergen */
+.switch input {
+    display: none;
+}
+
+/* Slider styling */
+.slider {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    background-color: #444;
+    border-radius: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+
+/* Ronde knop binnen de slider */
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.4s;
+}
+
+/* Als de schakelaar is ingeschakeld */
+input:checked + .slider {
+    background-color: #28a745;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Slider rond maken */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}

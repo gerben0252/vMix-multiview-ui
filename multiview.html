@@ -17,9 +17,39 @@
     </script>
 </head>
 <body>
-    <div class="warning">Trying to connect...</div>
-    <div class="outerContainer">
+    <div class="formContainer">
+        <form>
+            <label for="multiViewInput">Multiview Input:</label>
+            <input type="number" id="multiViewInput" value="1" min="1" class="inputField">
+    
+            <label for="overlayInput">Overlay Input:</label>
+            <input type="number" id="overlayInput" value="10" min="1" class="inputField">
+    
+            <label for="refreshInterval">Refresh Interval (ms):</label>
+            <input type="number" id="refreshInterval" value="100" min="50" step="50" class="inputField">
+    
+            <label for="showAudioMeters">Show Audio Meters:</label>
+            <div class="switch">
+                <label>
+                    Disable
+                    <input type="checkbox" id="audioMeters">
+                    <span class="slider round"></span>
+                    Enable
+                </label>
+            </div>
+            
+    
+            <label for="layerNameFontSize">Layer Name Font Size:</label>
+            <input type="number" id="layerNameFontSize" value="16" min="8" max="72" class="inputField">
+    
+            <button type="button" id="saveSettings" class="saveButton">Save</button>
+        </form>
     </div>
+    
+
+    <div class="warning" style="display:none;">Trying to connect...</div>
+    <div class="outerContainer" style="display:none;"></div>
+
     <script src="jquery.js"></script>
     <script src="script.js"></script>
 </body>
