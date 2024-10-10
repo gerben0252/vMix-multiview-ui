@@ -66,12 +66,6 @@ html {
 
 .multiViewBox.preview {border-color: #0de416;}
 
-div#clock {
-    font-size: 68px;
-    color: white;
-    text-shadow: 1px 1px 2px black;
-}
-
 .audioMeter {
     width: 25%;
     padding: 10px 0px 10px 5px;
@@ -154,15 +148,6 @@ div#clock {
     padding-left: 6%;
 }
 
-.testdiv {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-}
-
 .meterOutline {
     height: 90%;
     width: 22%;
@@ -196,151 +181,4 @@ div#clock {
     text-shadow: 2px 2px 1px black;
 }
 
-.settings {
-    /* position: absolute; */
-    bottom: 0;
-    width: 100%;
-    height: 51%;
-    display: flex;
-    z-index: 20;
-    padding: 10px 0;
-}
 
-.settingGroup {
-    flex: 1;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px black;
-    border-right-style: solid;
-    border-right-width: 0.5px;
-}
-
-.settingsHeader {
-    font-size: xx-large;
-    text-align: center;
-}
-
-.generalSettings {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
-
-.positionSettings {
-    display: flex;
-    flex-direction: column;
-}
-
-.positionGroup {
-    display: flex;
-    justify-content: space-between;
-}
-
-.PPZLabel {
-    flex: 0.7;
-}
-
-.PPZSlider {
-    flex: 2;
-}
-
-.PPZInput {
-    flex: 0.6;
-}
-
-.positionGroup>* {
-    margin: 5px;
-}
-
-br {
-    /* display: none; */
-}
-
-.settingGroup>* {}
-
-.vMixStatusEnabled::after {content: "YES" !important;}
-
-.vMixStatuses {
-    display: flex;
-    flex-direction: row;
-    /* font-size: 28px; */
-    height: 100%;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 3%;
-}
-
-.column {
-    height: 100%;
-    display: flex;
-    /* align-items: center; */
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex: 1;
-}
-
-.vMixStatus {
-    color: white;
-    text-shadow: 2px 2px 2px black;
-    font-weight: bold;
-}
-
-.vMixStatus::after {content: "NO";}
-
-.vMixStatusEnabled {
-    color: red !important;
-}
-
-.settingGroup:last-child {
-    border: none;
-}
-
-div#countdown {
-    font-size: 68px;
-    color: white;
-    text-shadow: 1px 1px 2px black;
-}
-
-.hideContainer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 17%;
-    background-color: rgba(0,0,0,0.5);
-    opacity: 0;
-    z-index: 100;
-}
-
-.settingsURL {
-    display: flex;
-    /* width: 100%; */
-    padding: 0.8% 0;
-    margin: 0 1.8%;
-    justify-content: center;
-    align-items: center;
-    border-bottom-style: solid;
-    border-color: white;
-    border-width: 0.5px;
-}
-
-.hideContainer:hover {
-    opacity: 1;
-}
-
-input#saveURL {
-    width: 80%;
-    font-size: large;
-}
-
-.hideContainer {}
-
-.settingsTooltip {
-    color: white;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px black;
-    padding-right: 10px;
-}
